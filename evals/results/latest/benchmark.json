@@ -1,0 +1,51 @@
+{
+  "skill_name": "geosql",
+  "run_config": {
+    "model": "opus",
+    "thinking_level": "medium"
+  },
+  "cases": [
+    {
+      "id": "berlin-create-map",
+      "passed": 3,
+      "failed": 0,
+      "total": 3,
+      "pass_rate": 1.0
+    },
+    {
+      "id": "london-boroughs",
+      "passed": 4,
+      "failed": 0,
+      "total": 4,
+      "pass_rate": 1.0
+    },
+    {
+      "id": "london-boroughs-dekart-bigquery",
+      "passed": 8,
+      "failed": 0,
+      "total": 8,
+      "pass_rate": 1.0
+    },
+    {
+      "id": "london-boroughs-dekart-wherobots",
+      "passed": 4,
+      "failed": 0,
+      "total": 4,
+      "pass_rate": 1.0
+    },
+    {
+      "id": "paris-boundaries",
+      "passed": 1,
+      "failed": 0,
+      "total": 1,
+      "pass_rate": 1.0
+    }
+  ],
+  "summary": {
+    "passed_assertions": 20,
+    "total_assertions": 20,
+    "pass_rate": 1.0,
+    "avg_tokens_per_turn": 14236.5,
+    "avg_duration_ms_per_turn": 428816.5
+  }
+}

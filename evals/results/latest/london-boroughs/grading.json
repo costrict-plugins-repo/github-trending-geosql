@@ -1,0 +1,42 @@
+{
+  "assertion_results": [
+    {
+      "assertion": "Agent used bq with --maximum_bytes_billed set.",
+      "passed": true,
+      "evidence": "All bq calls in the session included --maximum_bytes_billed=10737418240 (10 GiB).",
+      "commands_run": [],
+      "result_snippet": "bq query --use_legacy_sql=false --dry_run --format=json --maximum_bytes_billed=10737418240 ..."
+    },
+    {
+      "assertion": "Agent validated the query (dry run + row count check) before presenting the final answer.",
+      "passed": true,
+      "evidence": "Dry run returned ~751 MB estimated bytes; COUNT(*) query confirmed 33 rows before the final query was presented.",
+      "commands_run": [],
+      "result_snippet": "dry run: totalBytesProcessed=751362257; COUNT(*)=33"
+    },
+    {
+      "assertion": "Run query and ensure that the result is not empty.",
+      "passed": true,
+      "evidence": "Query returned 33 rows with non-null geometry for all London boroughs.",
+      "commands_run": [
+        "bq query --use_legacy_sql=false --format=json --maximum_bytes_billed=10737418240 --max_rows=5 'SELECT id, names.primary AS name, geometry IS NOT NULL AS has_geometry FROM ... LIMIT 5'"
+      ],
+      "result_snippet": "[{\"name\":\"Haringey\",\"has_geometry\":\"true\"},{\"name\":\"Ealing\",\"has_geometry\":\"true\"},{\"name\":\"Lambeth\",\"has_geometry\":\"true\"}, ...]"
+    },
+    {
+      "assertion": "Calculate the area of returned geometries and check if the total area is ~1,577 sq km (+/- 2%).",
+      "passed": true,
+      "evidence": "SUM(ST_AREA(geometry))/1e6 = 1577.4 km\u00b2. Tolerance band: 1545.5\u20131608.5 km\u00b2. 1577.4 is within range.",
+      "commands_run": [
+        "bq query --use_legacy_sql=false --format=json --maximum_bytes_billed=10737418240 'SELECT COUNT(*) AS row_count, ROUND(SUM(ST_AREA(geometry)) / 1e6, 1) AS total_area_km2 FROM ... '"
+      ],
+      "result_snippet": "{\"row_count\":\"33\",\"total_area_km2\":\"1577.4\"}"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  }
+}

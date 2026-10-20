@@ -1,0 +1,9 @@
+{
+  "name": "geosql",
+  "description": "Geospatial SQL skill for BigQuery and Snowflake. Discovers Overture Maps and warehouse schemas, writes cost-safe SQL with mandatory dry-run, validates results, and optionally renders an interactive map.",
+  "category": "location",
+  "author": {
+    "name": "Dekart XYZ",
+    "url": "https://dekart.xyz"
+  }
+}
